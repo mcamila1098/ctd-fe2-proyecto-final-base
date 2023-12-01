@@ -31,15 +31,15 @@ export interface INoticiasNormalizadas {
   descripcionCorta?: string;
 }
 
-// Principio de Responsabilidad Única (SRP - Single Responsibility Principle).
+// Principio de Responsabilidad Única (SRP - Single Responsibility Principle) aplicado.
+// Se han extraído funciones separadas (normalizeNewsData y fetchNews) para manejar tareas específicas: la normalización de los datos de noticias 
+// y la obtención de noticias de la fuente de datos, respectivamente.
+// Anteriormente estas funcionalidades estaban todas bajo el useEffect. 
 
-// Se crean funciones separadas para las responsabilidades clave
 
 // Función para normalizar los datos de las noticias
 const normalizeNewsData = (newsData: any[]): INoticiasNormalizadas[] => {
   return newsData.map((n) => {
-    // Lógica de normalización de datos
-    // ...
     const titulo = n.titulo
       .split(" ")
       .map((str: string) => {
@@ -73,7 +73,6 @@ const fetchNews = async (): Promise<INoticiasNormalizadas[]> => {
     const data = normalizeNewsData(respuesta);
     return data;
   } catch (error) {
-    // Manejo de errores
     console.error("Error al obtener noticias:", error);
     return [];
   }

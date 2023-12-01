@@ -1,5 +1,5 @@
-import { act, cleanup, render, screen, findByRole } from "../../test-utils";
-import { waitFor, fireEvent, getByLabelText } from "@testing-library/react";
+import { render, screen } from "../../test-utils";
+import { fireEvent } from "@testing-library/react";
 import Cita from "./Cita";
 
 describe("<Cita />", () => {
@@ -17,12 +17,12 @@ describe("<Cita />", () => {
     expect(buttonBorrar).toBeInTheDocument();
   });
 
-  test("Renderizar CARGANDO... ", async () => {
+  test("Renderizar CARGANDO", async () => {
     render(<Cita />);
     const inputAutor = screen.getByPlaceholderText(
       /Ingresa el nombre del autor/i
     );
-    fireEvent.change(inputAutor, { target: { value: /Ralph Wiggum/i } });
+    fireEvent.change(inputAutor, { target: { value: "Abe Simpson" } });
     const buttonCita = screen.getByLabelText(/Obtener cita/i);
     fireEvent.click(buttonCita);
     const cargando = await screen.findByText(/CARGANDO.../i);
